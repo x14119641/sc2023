@@ -1,0 +1,6 @@
+flask
+requests
+pandas
+polars
+connectorx
+lxml
