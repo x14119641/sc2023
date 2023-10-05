@@ -1,0 +1,13 @@
+flask
+python-dotenv
+flask-sqlalchemy
+flask_cors
+flask-jwt-extended
+
+
+# sc
+pandas
+lxml
+requests
+polars
+connectorx
