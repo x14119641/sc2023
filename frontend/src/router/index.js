@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import TestView from '../views/TestView.vue'
+import TicksTableView from '../views/TicksTableView.vue'
 import PingComponent from '../components/PingComponent.vue'
 // import TestComponent from '../components/TestComponent.vue'
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/test',
     name: 'test',
     component: TestView
+  },
+  {
+    path: '/tickers',
+    name: 'ticks',
+    component: TicksTableView
   },
 ]
 
