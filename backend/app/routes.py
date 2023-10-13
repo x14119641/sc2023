@@ -22,9 +22,21 @@ def make_dicts(cursor,rows):
 def tickers():
     with OpenDB(_PATH_DB_) as conn:
         cur = conn.execute('SELECT * FROM tickers')
-        # print(cur.description)
         data=cur.fetchall()
-        # print(len(data))
+    return jsonify(data)
+
+
+@app.route('/api/metadata/tickers', methods=['GET'])
+def tickersMeta():
+    with OpenDB(_PATH_DB_) as conn:
+        sql= '''
+            SELECT t.tick , t.name, m.sector, m.industry, m.country, m.market_cap, m.ipo_year  
+            FROM tickers t
+            INNER JOIN metadata m 
+            ON t.tick = m.tick ;
+        '''
+        cur = conn.execute(sql)
+        data=cur.fetchall()
     return jsonify(data)
 
 

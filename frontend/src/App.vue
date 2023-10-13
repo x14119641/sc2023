@@ -59,7 +59,15 @@
             Ticks Page
           </q-item-section>
         </q-item>
-
+        <q-item to="/tickersData">
+          <q-item-section avatar>
+            <q-icon name="ticks" />
+          </q-item-section>
+        
+          <q-item-section>
+            Ticks Metadata
+          </q-item-section>
+        </q-item>
         <q-item clickable tag="a" target="_blank" href="https://github.com/quasarframework/">
           <q-item-section avatar>
             <q-icon name="code" />
