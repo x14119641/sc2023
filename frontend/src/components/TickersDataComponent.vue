@@ -1,6 +1,7 @@
 <template>
   <div class="q-ma-md">
     <q-table 
+      ref="table"
      :columns="qTableHeader" 
      row-key="name"
      :rows="tableData"
@@ -19,7 +20,7 @@
         </q-input>
       </template>
       <template #header-cell="props">
-        <q-th :props="props" class="bg-primary text-white text-center text-bold">
+        <q-th :props="props" class="bg-primary text-white text-center text-bold thead-sticky">
           {{props.col.label}}
         </q-th> 
       </template>
@@ -41,12 +42,7 @@
           <q-td key="country" :props="props">
             {{props.row.country}}
           </q-td>
-          <q-td key="market_cap" :props="props">
-            {{props.row.market_cap}}
-          </q-td>
-          <q-td key="ipo_year" :props="props">
-            {{props.row.ipo_year}}
-          </q-td>
+          
           
          
         </q-tr>
@@ -55,10 +51,36 @@
   </div>
 </template>
 
+
+0
+
+<style lang="sass">
+.sticky-header
+  /* height or max-height is important */
+  max-height: 100vh
+
+  .q-table__top,
+  .q-table__bottom,
+  thead tr:first-child th
+    /* bg color is important for th; just specify one */
+    background-color: #fff
+
+  thead tr th
+    position: sticky
+    z-index: 1
+  thead tr:first-child th
+    top: 0
+
+  /* this is when the loading indicator appears */
+  &.q-table--loading thead tr:last-child th
+    /* height of all previous header rows */
+    top: 48px
+</style>
+
 <script>
 
 export default {
-  name: 'TickData',
+  name: 'TickersData',
   data () {
     return {
       filter: "",
@@ -115,20 +137,6 @@ export default {
           field: "country",
           sortable: true,
         },
-        {
-          name: "market_cap",
-          align: "center",
-          label: "Market Cap",
-          field: "market_cap",
-          sortable: true,
-        },
-        {
-          name: "ipo_year",
-          align: "center",
-          label: "IPO Year",
-          field: "ipo_year",
-          sortable: true,
-        },
       ],
       tableData:[],
     }
@@ -143,7 +151,7 @@ export default {
             return filteredItems;
         },
     getData() {
-      const path = "http://127.0.0.1:5000/api/metadata/tickers";
+      const path = "http://127.0.0.1:5000/api/tickers";
 
       this.axios
         .get(path)

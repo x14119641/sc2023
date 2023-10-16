@@ -5,7 +5,7 @@ import TicksTableView from '../views/TicksTableView.vue'
 import PingComponent from '../components/PingComponent.vue'
 // import TestComponent from '../components/TestComponent.vue'
 import TicksTableView2 from '../views/TicksTableView2.vue'
-import TicksDataTableView from '../views/TicksDataTableView.vue'
+import TickersDataView from '../views/TickersDataView.vue'
 
 const routes = [
   {
@@ -43,8 +43,8 @@ const routes = [
   },
   {
     path: '/tickersData',
-    name: 'ticksData',
-    component: TicksDataTableView
+    name: 'tickersData',
+    component: TickersDataView
   },
 ]
 

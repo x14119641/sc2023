@@ -1,6 +1,6 @@
 <template>
   <div class="">
-      <TickDataComponent />
+      <TickersDataComponent />
   </div>
       
 
@@ -8,12 +8,12 @@
   
   <script>
   // @ is an alias to /src
-  import TickDataComponent from '@/components/TickersDataTableComponent.vue'
+  import TickersDataComponent from '@/components/TickersDataComponent.vue'
   
   export default {
     name: 'TicksDataTableView',
     components: {
-      TickDataComponent
+      TickersDataComponent
     }
   }
   </script>

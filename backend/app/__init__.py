@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 # from flask_migrate import Migrate
 # from flask_jwt_extended import JWTManager
 from flask_cors import CORS
+import os
 
 # Libraries
 cors = CORS(
@@ -23,7 +24,6 @@ db = SQLAlchemy(
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(Config)
-
     with app.app_context():
         db.init_app(app)
         # migrate.init_app(app, db)
