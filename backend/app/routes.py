@@ -32,6 +32,19 @@ def tickers():
     return jsonify(data)
 
 
+
+@app.route('/api/institutional/<tick>', methods=['GET'])
+def tickerInstitutional(tick):
+    sql= f'''
+            SELECT ih.* FROM institutional_holdings ih  
+            WHERE ih.tick = '{tick.upper()}';
+        '''
+    with OpenDB(_PATH_DB_) as conn:
+        cur = conn.execute(sql)
+        data=cur.fetchall()
+    print(data)
+    return jsonify(data)
+
 @app.route('/api/metadata/tickers', methods=['GET'])
 def tickersMeta():
     sql= '''

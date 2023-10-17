@@ -12,6 +12,7 @@
      :loading="loading_stg"
      :pagination=pagination
      :columnDefs="columnDefs"
+     wrap-cells
      >
 
       <template #top-right>

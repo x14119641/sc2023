@@ -52,21 +52,21 @@
 
         <q-item to="/tickersData">
           <q-item-section avatar>
-            <q-icon name="feedback" />
+            <q-icon name="segment" />
           </q-item-section>
         
           <q-item-section>
-            Tickers List
+            Tickers
           </q-item-section>
         </q-item>
 
-        <q-item to="/tickers">
+        <q-item to="/ticker/">
           <q-item-section avatar>
-            <q-icon name="ticks" />
+            <q-icon name="query_stats" />
           </q-item-section>
         
           <q-item-section>
-            Ticks Page
+            Ticks Search
           </q-item-section>
         </q-item>
         <q-item to="/tickersData">
