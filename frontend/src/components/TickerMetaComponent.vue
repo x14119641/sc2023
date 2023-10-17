@@ -29,7 +29,7 @@
     <div class="q-ta-md row">
         <!-- <router-view :key="$route.fullPath" @showLoading="showLoading"></router-view> -->
       <div v-if="tick" class="col-12 text-h5">
-        <TickerCardComponent title="Tables" total="n_tables" :my_data="my_data"/>
+        <TickerCardComponent :title="formatTitle()" total="n_tables" :my_data="my_data"/>
         
       </div>
       <div v-else class="col-3 text-h5">No data to show</div>
@@ -84,6 +84,9 @@ export default {
             console.log(error);
         });
     },
+    formatTitle() {
+        return 'Report for ' + this.tick
+    }
   },
 
   // define a watcher

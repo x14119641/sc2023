@@ -17,9 +17,14 @@
           
         </q-card>
       </div>
-      <div class="q-mt-xs col-2 bg-grey-10" style="overflow: auto">
+      <div class="q-mt-xs col-auto bg-grey-10" style="overflow: auto">
         <q-card class="no-border-radius">
-          <q-card-section> Child #2 </q-card-section>
+          <q-card-section horizontal> 
+            <div class="q-ma-md">institutional_ownership_perc</div>
+            <q-separator vertical />
+            <div class=" q-ma-md text-subtitle">85.95%</div>
+
+          </q-card-section>
           
         </q-card>
         
