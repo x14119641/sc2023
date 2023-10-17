@@ -50,6 +50,16 @@
           </q-item-section>
         </q-item>
 
+        <q-item to="/tickersData">
+          <q-item-section avatar>
+            <q-icon name="feedback" />
+          </q-item-section>
+        
+          <q-item-section>
+            Tickers List
+          </q-item-section>
+        </q-item>
+
         <q-item to="/tickers">
           <q-item-section avatar>
             <q-icon name="ticks" />
@@ -112,7 +122,8 @@
       <!-- <router-link to="/test">test</router-link>  -->
       <HelloWorld v-if="$route.name == 'home'"  />
       <!-- <TestView /> -->
-      <router-view/>
+      <!-- <router-view/> -->
+      <router-view :key="$route.fullPath" @showLoading="showLoading"></router-view>
     </q-page-container>
   </q-layout>
   

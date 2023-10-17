@@ -26,9 +26,10 @@
       </template>
       
       <template #body="props">
+        
         <q-tr :props="props">
-          <q-td key="tick" :props="props">
-            {{props.row.tick}}
+          <q-td key="tick" :props="props"  >
+            <router-link :to="{ name: 'tickerMeta', params: { tick: props.row.tick }}">{{props.row.tick}}</router-link>
           </q-td>
           <q-td key="name" :props="props">
             {{props.row.name}}
@@ -52,9 +53,10 @@
 </template>
 
 
-0
+
 
 <style lang="sass">
+
 .sticky-header
   /* height or max-height is important */
   max-height: 100vh

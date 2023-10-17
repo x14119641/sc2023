@@ -6,6 +6,7 @@ import PingComponent from '../components/PingComponent.vue'
 // import TestComponent from '../components/TestComponent.vue'
 import TicksTableView2 from '../views/TicksTableView2.vue'
 import TickersDataView from '../views/TickersDataView.vue'
+import TickerMetaView from '../views/TickerMetaView.vue'
 
 const routes = [
   {
@@ -44,9 +45,19 @@ const routes = [
   {
     path: '/tickersData',
     name: 'tickersData',
-    component: TickersDataView
+    component: TickersDataView,
+    props: true
+  },
+  {
+    path: '/ticker/:tick?',
+    name: 'tickerMeta',
+    component: TickerMetaView,
+    props: true
   },
 ]
+
+
+
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
