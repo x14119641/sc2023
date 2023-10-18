@@ -28,7 +28,7 @@
     </div>
     <div class="q-ta-md row">
         <!-- <router-view :key="$route.fullPath" @showLoading="showLoading"></router-view> -->
-      <div v-if="tick" class="col-12 text-h5">
+      <div v-if="my_data.length" class="col-12 text-h5">
         <TickerCardComponent :title="formatTitle()" total="n_tables" :my_data="my_data"/>
         
       </div>
@@ -36,6 +36,7 @@
     </div>
     
   </div>
+
 </template>
 
 <script>
