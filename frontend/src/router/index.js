@@ -8,7 +8,7 @@ import TicksTableView2 from '../views/TicksTableView2.vue'
 import TickersDataView from '../views/TickersDataView.vue'
 import TickerMetaView from '../views/TickerMetaView.vue'
 import TickersMetaDataView from '../views/TickersMetaDataView.vue'
-
+import AdminView from '../views/AdminView.vue'
 
 const routes = [
   {
@@ -60,6 +60,12 @@ const routes = [
     path: '/tickersMeta',
     name: 'tickersMetaData',
     component: TickersMetaDataView,
+    props: true
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: AdminView,
     props: true
   },
 ]
