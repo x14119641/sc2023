@@ -37,21 +37,23 @@ def tickers():
 def tickerInstitutional(tick):
     sql= f'''
             SELECT ih.* FROM institutional_holdings ih  
-            WHERE ih.tick = '{tick.upper()}';
+            WHERE ih.tick = '{tick.upper()}'
+            ORDER BY ih.refreshed_page_date DESC;
         '''
     with OpenDB(_PATH_DB_) as conn:
         cur = conn.execute(sql)
         data=cur.fetchall()
-    print(data)
+    # print(data)
     return jsonify(data)
 
 @app.route('/api/metadata/tickers', methods=['GET'])
 def tickersMeta():
     sql= '''
-            SELECT t.tick , t.name, m.sector, m.industry, m.country, m.market_cap, m.ipo_year  
-            FROM tickers t
-            INNER JOIN metadata m 
-            ON t.tick = m.tick ;
+            SELECT s.tick,s.last_sale, s.net_change, s.change_perc, s.market_cap, s.ipo_year, s.inserted  FROM (
+                SELECT t.*,
+                    ROW_NUMBER() OVER(PARTITION BY t.tick ORDER BY t.inserted DESC) as rnk
+                FROM metadata t) s
+            WHERE s.rnk = 1;
         '''
     with OpenDB(_PATH_DB_) as conn:
         cur = conn.execute(sql)

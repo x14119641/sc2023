@@ -7,6 +7,8 @@ import PingComponent from '../components/PingComponent.vue'
 import TicksTableView2 from '../views/TicksTableView2.vue'
 import TickersDataView from '../views/TickersDataView.vue'
 import TickerMetaView from '../views/TickerMetaView.vue'
+import TickersMetaDataView from '../views/TickersMetaDataView.vue'
+
 
 const routes = [
   {
@@ -52,6 +54,12 @@ const routes = [
     path: '/ticker/:tick?',
     name: 'tickerMeta',
     component: TickerMetaView,
+    props: true
+  },
+  {
+    path: '/tickersMeta',
+    name: 'tickersMetaData',
+    component: TickersMetaDataView,
     props: true
   },
 ]
