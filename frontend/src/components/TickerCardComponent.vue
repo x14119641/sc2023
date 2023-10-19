@@ -6,10 +6,10 @@
 
     <div
       id="parent"
-      class="fit row wrap justify-evenly items-start content-start "
+      class="fit  wrap row items-stretch "
       style="overflow: hidden"
     >
-      <div class="col-12 bg-grey-6" style="overflow: auto">
+      <div class="col-12 bg-grey-6 " style="overflow: auto">
         <q-card class="no-border-radius">
           <q-card-section> 
             <div class="text-h6">{{title}} </div>
@@ -78,8 +78,10 @@
         
         
       </div>
-
-      <div class="q-ma-xs col-auto bg-grey-10 " style="overflow: auto">
+      <div class="q-mt-xs q-pl-xs col-auto  " style="overflow: auto">
+        <!-- Añado columna vacia para cuando haga resize los margines sean iguales entre las columnas -->
+      </div>
+      <div class="q-my-xs  col-auto  " style="overflow: auto">
         <q-card class="no-border-radius">
           <q-card-section horizontal> 
             <div class="q-ma-md" style="min-width:250px">Positions Holders</div>
