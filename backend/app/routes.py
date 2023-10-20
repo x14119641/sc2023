@@ -1,11 +1,11 @@
 from .connection_sql import OpenDB
 from flask import current_app as app
 from flask import jsonify, request
+from sc.runner import insert_ticks, insert_investors_data,insert_metadata
+import json
 
 
-
-
-_PATH_DB_ = 'small_scarper/db.db'
+_PATH_DB_ = 'sc/db.db'
 
 
 def make_dicts(cursor,rows):
@@ -58,6 +58,29 @@ def tickersMeta():
     with OpenDB(_PATH_DB_) as conn:
         cur = conn.execute(sql)
         data=cur.fetchall()
+    return jsonify(data)
+
+
+
+@app.route('/api/insert_tickers', methods=['GET'])
+def insert_tickers():
+    # data = insert_ticks()
+    data='doing insert'
+    return jsonify(data)
+
+
+@app.route('/api/insert_institutional', methods=['POST'])
+def insert_institutional():
+    refreshed_date = json.loads(request.data.decode())['refreshed_date']
+    print(refreshed_date)
+    # data = insert_investors_data(refreshed_date or '')
+    data='doing insert'
+    return jsonify(data)
+
+@app.route('/api/insert_metadata', methods=['Get'])
+def insert_metadata():
+    # data = insert_metadata(refreshed_date or '')
+    data='doing insert'
     return jsonify(data)
 
 

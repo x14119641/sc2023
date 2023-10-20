@@ -1,12 +1,12 @@
-from db import ConnectorDb as cdb
-from scarper import Scarper as sc
+from .db import ConnectorDb as cdb
+from .scarper import Scarper as sc
 from datetime import datetime
 import pandas as pd
 import os
 import time
 
 errors_dicts_list = []
-
+_BASEDIR_ = os.path.abspath(os.path.dirname(__file__))
 
 def main():
     cls = sc(cdb())
@@ -76,7 +76,16 @@ def insert_investors_data(refresh_date=None):
     i = 0
     x = 0
     file_path = 'errors_runner.csv'
+    file_path = os.path.join(_BASEDIR_, file_path)
     msg = 'Starting Insert Data'
+    if refresh_date:
+        try:
+            refresh_date = datetime.strptime(refresh_date, '%d-%m-%Y %H:%M:%S')
+
+        except Exception:
+            msg='Date forrmat incorrect. Please insert correct format'
+            print('here')
+            return msg
     cls.tickers.fillna('', inplace=True)
     for tick in cls.tickers['Symbol'][0:-1]:
         i += 1

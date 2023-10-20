@@ -1,16 +1,17 @@
 import requests, os
 import pandas as pd
-from db import ConnectorDb as cdb
+from .db import ConnectorDb as cdb
 
 
-
+_BASEDIR_ = os.path.abspath(os.path.dirname(__file__))
 
 class Scarper():
     errors_dicts_list = []
 
     def __init__(self, tickers=True) -> None:
         if tickers:
-            self.tickers = pd.read_csv('tickers2.csv')
+            file_path = os.path.join(_BASEDIR_, 'tickers2.csv')
+            self.tickers = pd.read_csv(file_path)
 
 
     def get_data(self, tick):
@@ -44,6 +45,7 @@ class Scarper():
 
     def main(self):
         file_path='outputs/errors_scarper.csv'
+        file_path = os.path.join(_BASEDIR_, file_path)
         print(f'Starting Scarper; number of tickers = {len(self.tickers)}')
         for i in range(1,len(self.tickers[0:2])):
             try:    
