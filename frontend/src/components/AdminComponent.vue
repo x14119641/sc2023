@@ -16,7 +16,7 @@
   <div class="q-ma-md bg-grey-2">
     <div class="row justify-center text-center">
       <div class="col-12 q-ma-sm bg-blue-3">HEre goes the modal message
-        <div class="q-ma-sm bg-blue-9">
+        <div class=" bg-blue-9">
           Inner Box
         </div>
       </div>
