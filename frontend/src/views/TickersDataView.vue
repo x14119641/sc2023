@@ -13,7 +13,7 @@
   export default {
     name: 'TicksDataTableView',
     components: {
-      TickersDataComponent
+      TickersDataComponent,
     }
   }
   </script>

@@ -3,6 +3,8 @@ from flask import current_app as app
 from flask import jsonify, request
 from sc.runner import insert_ticks, insert_investors_data,insert_metadata
 import json
+from flask_login import LoginManager, AnonymousUserMixin,current_user
+
 
 
 _PATH_DB_ = 'sc/db.db'

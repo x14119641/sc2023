@@ -1,5 +1,6 @@
 <template>
   <div class="q-ma-md">
+    <p>MEta</p>
     <q-table 
       ref="table"
      :columns="qTableHeader" 
@@ -10,7 +11,7 @@
      :filter="filter"
      :filter-method="filterData"
      :loading="loading_stg"
-     :pagination=5
+  
      :columnDefs="columnDefs"
      wrap-cells
      >
@@ -96,7 +97,7 @@ export default {
         sortBy: 'tick',
         descending: false,
         page: 1,
-        rowsPerPage: 50
+        rowsPerPage: 60
       },
       columnDefs: [
         { field: 'tick', width: 5, maxWidth: 10, suppressSizeToFit: true },
