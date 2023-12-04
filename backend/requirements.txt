@@ -3,6 +3,7 @@ python-dotenv
 flask-sqlalchemy
 flask_cors
 flask-jwt-extended
+bcrypt
 
 
 # sc

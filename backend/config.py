@@ -9,10 +9,11 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config(object):
     # ...
+    FLASK_APP= 'main.py'
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'sqlite:///' + os.path.join(basedir, 'db.db')
+        'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    # JWT_SECRET_KEY = 'dq9nt3lkng8*-12dasa12amc'
+    JWT_SECRET_KEY = 'dq9nt3lkng8*-12dasa12amc'
     SECRET_KEY = 'x654dqw56q5we4/89asd6xd49'
     # JWT_ACCESS_TOKEN_EXPIRES = Default: datetime.timedelta(minutes=15)
     # JWT_AUTH_SECURE = True

@@ -2,7 +2,7 @@ from flask import Flask
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
 # from flask_migrate import Migrate
-# from flask_jwt_extended import JWTManager
+from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 import os
 
@@ -18,7 +18,7 @@ db = SQLAlchemy(
     #session_options={'autocommit': True}
     )
 # migrate = Migrate()
-# jwt = JWTManager()
+jwt = JWTManager()
 
 
 def create_app(config_class=Config):
@@ -27,7 +27,7 @@ def create_app(config_class=Config):
     with app.app_context():
         db.init_app(app)
         # migrate.init_app(app, db)
-        # jwt.init_app(app)
+        jwt.init_app(app)
         cors.init_app(
             app,
             # origins=["http://localhost:8080","http://localhost:5000", "http://zitroapi.pre.landbased.zitro.lan/es/login/", "http://10.0.14.245:8080/"], 
@@ -38,3 +38,4 @@ def create_app(config_class=Config):
         from . import routes, models
 
         return app
+    

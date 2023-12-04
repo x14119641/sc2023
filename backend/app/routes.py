@@ -5,6 +5,10 @@ from sc.runner import insert_ticks, insert_investors_data,insert_metadata
 import json
 from flask_login import LoginManager, AnonymousUserMixin,current_user
 
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import JWTManager
 
 
 _PATH_DB_ = 'sc/db.db'
