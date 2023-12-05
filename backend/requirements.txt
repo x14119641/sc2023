@@ -3,7 +3,9 @@ python-dotenv
 flask-sqlalchemy
 flask_cors
 flask-jwt-extended
+flask-migrate
 bcrypt
+redis
 
 
 # sc

@@ -1,8 +1,10 @@
 from app import db
 import bcrypt 
+
+
 roles_users = db.Table('roles_users',
     db.Column('id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
-    db.Column('role_id', db.Integer, db.ForeignKey('role.id'), primary_key=True)
+    db.Column('role_id', db.Integer, db.ForeignKey('role.role_id'), primary_key=True)
 )
 
 
@@ -19,12 +21,14 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % self.username
 
-    def set_password(self, password):
-        self.password_hash = bcrypt.hashpw(password.encode('utf-8'), 
+    @staticmethod
+    def set_password(password):
+        return bcrypt.hashpw(password.encode('utf-8'), 
                                            bcrypt.gensalt())
 
     def check_password(self, password):
         return bcrypt.checkpw(password.encode('utf-8'), self.pwd)
+
 
 
 
@@ -34,3 +38,7 @@ class Role(db.Model):
     role_id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(80), unique=True)
 
+class TokenBlocklist(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    jti = db.Column(db.String(36), nullable=False, index=True)
+    created_at = db.Column(db.DateTime, nullable=False)

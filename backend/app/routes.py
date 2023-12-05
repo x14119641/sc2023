@@ -3,13 +3,14 @@ from flask import current_app as app
 from flask import jsonify, request
 from sc.runner import insert_ticks, insert_investors_data,insert_metadata
 import json
-from flask_login import LoginManager, AnonymousUserMixin,current_user
 
-from flask_jwt_extended import create_access_token
-from flask_jwt_extended import get_jwt_identity
-from flask_jwt_extended import jwt_required
-from flask_jwt_extended import JWTManager
 
+from flask_jwt_extended import get_jwt_identity, get_jwt, jwt_required, create_access_token
+
+
+from .models import User, TokenBlocklist
+from . import db, jwt
+from datetime import datetime, timedelta,timezone
 
 _PATH_DB_ = 'sc/db.db'
 
@@ -100,3 +101,71 @@ def ping_pong():
 @app.route('/index')
 def index():
     return "Hello, World!"
+
+
+@app.route("/login", methods=["POST"])
+def login():
+    username = request.json.get("username", None)
+    pwd = request.json.get("pwd", None)
+    user = User.query.filter_by(username=username).first()
+    if user:
+        if user.check_password(pwd):
+            access_token = create_access_token(identity=username)
+            return jsonify(access_token=access_token), 200
+    return jsonify({"msg": "Bad username or password"}), 401
+
+
+@app.route("/register", methods=["POST"])
+def register():
+    username = request.json.get("username", None)
+    pwd = request.json.get("pwd", None)
+    email = request.json.get("email", None)
+    print(email)
+    user = User.query.filter_by(username=username).first()
+    print(user)
+    if user:
+        return jsonify({"msg": "Bad username or password"}), 401
+    # create a new user with the form data. Hash the password so the plaintext version isn't saved.
+    new_user = User(email=email, username=username, pwd=User.set_password(pwd))
+    print(new_user)
+    # add the new user to the database
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify({"msg": "Registerred"}), 200
+
+
+# Protect a route with jwt_required, which will kick out requests
+# without a valid JWT present.
+@app.route("/protected", methods=["GET"])
+@jwt_required()
+def protected():
+    # Access the identity of the current user with get_jwt_identity
+    current_user = get_jwt_identity()
+    return jsonify(logged_in_as=current_user), 200
+'''
+# Callback function to check if a JWT exists in the redis blocklist
+@app.token_in_blocklist_loader
+def check_if_token_is_revoked(jwt_header, jwt_payload: dict):
+    jti = jwt_payload["jti"]
+    token_in_redis = jwt_redis_blocklist.get(jti)
+    return token_in_redis is not None
+'''
+
+# Callback function to check if a JWT exists in the database blocklist
+@jwt.token_in_blocklist_loader
+def check_if_token_revoked(jwt_header, jwt_payload: dict) -> bool:
+    jti = jwt_payload["jti"]
+    token = db.session.query(TokenBlocklist.id).filter_by(jti=jti).scalar()
+
+    return token is not None
+
+# Endpoint for revoking the current users access token. Saved the unique
+# identifier (jti) for the JWT into our database.
+@app.route("/logout", methods=["DELETE"])
+@jwt_required()
+def modify_token():
+    jti = get_jwt()["jti"]
+    now = datetime.now(timezone.utc)
+    db.session.add(TokenBlocklist(jti=jti, created_at=now))
+    db.session.commit()
+    return jsonify(msg="JWT revoked")

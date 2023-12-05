@@ -1,10 +1,11 @@
 from flask import Flask
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
-# from flask_migrate import Migrate
+from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
-import os
+import os, redis
+from datetime import timedelta
 
 # Libraries
 cors = CORS(
@@ -17,16 +18,20 @@ cors = CORS(
 db = SQLAlchemy(
     #session_options={'autocommit': True}
     )
-# migrate = Migrate()
+migrate = Migrate()
 jwt = JWTManager()
-
+jwt_redis_blocklist = redis.StrictRedis(
+    host="localhost", port=6379, db=0, decode_responses=True
+)
 
 def create_app(config_class=Config):
     app = Flask(__name__)
+    ACCESS_EXPIRES = timedelta(hours=1)
+    app.config["JWT_ACCESS_TOKEN_EXPIRES"] = ACCESS_EXPIRES
     app.config.from_object(Config)
     with app.app_context():
         db.init_app(app)
-        # migrate.init_app(app, db)
+        migrate.init_app(app, db)
         jwt.init_app(app)
         cors.init_app(
             app,
